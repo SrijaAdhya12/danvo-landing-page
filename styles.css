@@ -61,16 +61,19 @@ a {
 	z-index: 10;
 }
 
-header{
-    position: relative;
-    z-index: 70;
+header {
+	position: relative;
+	z-index: 70;
 }
-
 
 header .container {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+}
+
+.overlay {
+	display: none;
 }
 
 .logo {
@@ -164,7 +167,7 @@ header .container {
 	border-radius: 50%;
 	font-size: 1.5rem;
 	transition: 0.3s;
-    cursor: pointer;
+	cursor: pointer;
 }
 
 .toggle-btn i {
@@ -194,53 +197,49 @@ header .container {
 	opacity: 0.1;
 }
 
-.copy{
-    position: absolute;
-    left: 0;
-    top: 0;
-    z-index: 100;
-    animation: appear 1s 1 both;
+.copy {
+	position: absolute;
+	left: 0;
+	top: 0;
+	z-index: 100;
+	animation: appear 1s 1 both;
 }
 
-@keyframes appear{
-    0%{
-        clip-path: circle(30.7% at -25% -25%);
-    }
-    100%{
-        clip-path: circle(150% at 0 0);
-    }
+@keyframes appear {
+	0% {
+		clip-path: circle(30.7% at -25% -25%);
+	}
+	100% {
+		clip-path: circle(150% at 0 0);
+	}
 }
 
-@media screen and (max-width: 870px) {
-   .showcase-area .container{
-    grid-template-columns: 1fr;
-   }
-} 
-
-.person{
-    width: 100;
-    transform: none;
-}
-
-.links{
-    display: none;
-}
-
-.hamburger-menu{
+.hamburger-menu {
 	position: relative;
 	z-index: 99;
-    width: 2rem;
-    height: 2rem;
-    background-color: black;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
+	width: 2rem;
+	height: 2rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
 	display: none;
 }
 
-.big-wrapper.active .hamburger-menu .bar{
-    background-color: transparent;
+.hamburger-menu .bar {
+	position: relative;
+	z-index: 99;
+	width: 100%;
+	height: 3px;
+	background-color: var(--dark-secondary);
+	position: relative;
+	border-radius: 3px;
+	transition: 0.5s;
+	display: none;
+}
+
+.big-wrapper.active .hamburger-menu .bar {
+	background-color: transparent;
 }
 
 .big-wrapper.active .bar::before {
@@ -251,37 +250,136 @@ header .container {
 	transform: translateY(0) rotate(45deg);
 }
 
-
-
-.hamburger-menu .bar{
-	position: relative;
-	z-index: 99;
-    width: 100%;
-    height: 3px;
-    background-color: var(--dark-secondary);
-    position: relative;
-    border-radius: 3px;
-	transition: 0.5s;
+.bar::before {
+	transform: translateY(-8px);
 }
 
-.bar::before{
-    transform: translateY(-8px);
+.bar::after {
+	transform: translateY(8px);
 }
 
-.bar::after{
-    transform: translateY(8px);
-}
-
-.bar::before, .bar::after{
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background-color: var(--dark-secondary);
+.bar::before,
+.bar::after {
+	content: "";
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background-color: var(--dark-secondary);
 	border-radius: 3px;
 	transition: 0.5s;
 }
 
-.hamburger-menu{
+.hamburger-menu {
 	display: flex;
+}
+
+@media screen and (max-width: 870px) {
+	.hamburger-menu {
+		display: flex;
+	}
+
+	.links {
+		position: fixed;
+		top: 0;
+		right: 0;
+		max-width: 450px;
+		height: 100%;
+		width: 100%;
+		background-color: var(--primary);
+		z-index: 95;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		transform: translateX(100%);
+		transition: 0.5;
+	}
+
+	.links ul {
+		flex-direction: column;
+	}
+
+	.links a {
+		color: #fff;
+		margin-left: 0;
+		padding: 2rem 0;
+	}
+
+	.links .btn {
+		background: none;
+	}
+
+	.overlay {
+		display: block;
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background-color: rgba(0, 0, 0, 0.7);
+		opacity: 0;
+		pointer-events: none;
+		transition: 0.5s;
+	}
+	.big-wrapper.active .links {
+		transform: translateX(0);
+		box-shadow: 0 0 50px 2px rgba(0, 0, 0, 0.4);
+	}
+
+	.big-wrapper.active .overlay {
+		pointer-events: all;
+		opacity: 1;
+	}
+
+	.showcase-area {
+		padding: 2.5rem 0;
+		max-width: 700px;
+		margin: 0 auto;
+	}
+
+	.showcase-area .container {
+		grid-template-columns: 1fr;
+		justify-content: center;
+		grid-area: 2rem;
+	}
+
+	.big-title {
+		font-size: 1.1rem;
+	}
+
+	.text {
+		font-size: 0.95rem;
+		margin: 1.4rem 0 1.5rem;
+	}
+
+	.logo h3 {
+		font-size: 1.23rem;
+	}
+
+	.shape {
+		bottom: -180px;
+		left: -150px;
+	}
+
+	.person {
+		width: 100;
+		transform: none;
+	}
+}
+
+@media screen and (max-width: 470px) {
+	.container {
+		padding: 0 1.5rem;
+	}
+
+	.big-title {
+		font-size: 0.9rem;
+	}
+
+	.text {
+		margin: 1.1rem 0 1.5rem;
+	}
+
+	.showcase-area .btn {
+		font-size: 0.8rem;
+	}
 }

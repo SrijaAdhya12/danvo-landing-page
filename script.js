@@ -1,6 +1,8 @@
 var toggle_btn;
 var big_wrapper;
 var hamburger_menu;
+let dark = false;
+const main = document.querySelector("main");
 
 function declare() {
 	toggle_btn = document.querySelector(".toggle-btn");
@@ -9,16 +11,10 @@ function declare() {
 	hamburger_menu = document.querySelector(".hamburger-menu");
 	hamburger_menu.addEventListener("click", () => {
 		big_wrapper.classList.toggle("active");
-	})
+	});
 }
 
-
-
-const main = document.querySelector("main");
-
 declare();
-
-let dark = false;
 
 function toggleAnimation() {
 	dark = !dark;
@@ -37,6 +33,5 @@ function toggleAnimation() {
 		big_wrapper.remove();
 		clone.classList.remove("copy");
 		declare();
-}  );
+	});
 }
-
